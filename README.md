@@ -20,7 +20,7 @@ You can find the link to download the appropriate version for your OS on the rel
 ## Usage
 When you start the Application you will be asked to enter these parameters
 
-| Param  Description |
+| Param | Description |
 | --- | --- |
 | Amount | The amount you will be investing in into the Mutual Funds (takes only numbers) |
 | Start Date | Start date in the format MM/DD/YYYY you want data data for the Mutual Funds from (needs to atleast day before the current day) |
