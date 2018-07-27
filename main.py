@@ -160,8 +160,8 @@ if __name__ == '__main__':
 	keyword = getKeyword()
 	fname = getFilename()
 	
-
-	file = open(fname+'.csv', 'w+')
+	csvfilePath = os.path.join(os.path.dirname(sys.argv[0]), fname+'.csv')
+	file = open(csvfilePath, 'w+')
 	writer = csv.writer(file)
 	writer.writerow(["Name","Total invested","Current valuation","Net profit","Absolute profit","Total installments","Internal rate of return","SIP start date","SIP end date"])
 
