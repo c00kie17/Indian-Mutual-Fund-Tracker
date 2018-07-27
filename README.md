@@ -5,7 +5,7 @@ Fetch Indian Mutual Fund Data for a specified period  and amount.
 
 ## Requirments
 
-### OSX AND Windows
+### OSX & Windows
 
 You need to have Google Chrome Installed on your machine which can be found <a href= "https://www.google.com/chrome/">here</a>
 
