@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import WebDriverException
 import csv
 from tqdm import tqdm
 from time import sleep
@@ -22,39 +23,46 @@ def getdata(link,name):
 	linkdriver.get(link)
 	data.append(name)
 	try:
-		monthValBox = WebDriverWait(linkdriver, 20).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/span/div/div[3]/div/div[1]/div/div[1]/form/div[1]/div[1]/label/input")))
-	except TimeoutException:
+		try:
+			monthValBox = WebDriverWait(linkdriver, 20).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/span/div/div[3]/div/div[1]/div/div[1]/form/div[1]/div[1]/label/input")))
+		except TimeoutException:
+			return data	
+		finally:
+			monthValBox.clear()
+			monthValBox.send_keys(monthlyAmount)
+
+		try:
+			startDateBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@ng-model="sip_start_date"]')))
+		except TimeoutException:
+			return data		
+		finally:	
+			startDateBox.clear()
+			startDateBox.send_keys(str(startDate))
+
+		try:
+			endDateBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@ng-model="sip_end_date"]')))
+		except TimeoutException:
+			return data		
+		finally:	
+			endDateBox.clear()
+			endDateBox.send_keys(str(endDate))
+
+		try:
+			calcBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div/span/div/div[3]/div/div[1]/div/div[1]/form/div[1]/div[4]/button')))
+		except TimeoutException:
+			return data		
+		finally:	
+			calcBox.click()
+		values = linkdriver.find_elements_by_class_name("fund-details");
+
+	except WebDriverException:
 		return data	
-	finally:
-		monthValBox.clear()
-		monthValBox.send_keys(monthlyAmount)
-
-	try:
-		startDateBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@ng-model="sip_start_date"]')))
-	except TimeoutException:
-		return data		
-	finally:	
-		startDateBox.clear()
-		startDateBox.send_keys(str(startDate))
-
-	try:
-		endDateBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@ng-model="sip_end_date"]')))
-	except TimeoutException:
-		return data		
-	finally:	
-		endDateBox.clear()
-		endDateBox.send_keys(str(endDate))
-
-	try:
-		calcBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div/span/div/div[3]/div/div[1]/div/div[1]/form/div[1]/div[4]/button')))
-	except TimeoutException:
-		return data		
-	finally:	
-		calcBox.click()
-
-	values = linkdriver.find_elements_by_class_name("fund-details");
 	for index in range(len(values)-8,len(values)):
-			data.append(values[index].text)	
+		if(index < len(values)-5):
+				value = values[index].text[1:]
+		else:
+			value = values[index].text
+		data.append(value)	
 	linkdriver.close()				
 	return data	
 
@@ -159,7 +167,6 @@ if __name__ == '__main__':
 	endDate = getEndDate()
 	keyword = getKeyword()
 	fname = getFilename()
-	
 	csvfilePath = os.path.join(os.path.dirname(sys.argv[0]), fname+'.csv')
 	file = open(csvfilePath, 'w+')
 	writer = csv.writer(file)
