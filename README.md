@@ -11,6 +11,11 @@ You need to have Google Chrome Installed on your machine which can be found <a h
 
 ### Linux
 
+Run the following commands to install Google Chrome on Linux
+
+`apt-get install chromium-browser`
+
+`apt-get -f install`
 
 
 ## Download
