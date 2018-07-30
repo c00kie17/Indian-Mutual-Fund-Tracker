@@ -156,11 +156,20 @@ def getFilename():
 
 if __name__ == '__main__':
 	if(platform.system() == "Darwin"):
-		chromefile =  os.path.join(sys._MEIPASS, "chromedrivermac")
-	elif(platform.system() == "Windows"):	
-		chromefile =  os.path.join(sys._MEIPASS, "chromedriverwin.exe")
+		try:
+			chromefile =  os.path.join(sys._MEIPASS, "chromedrivermac")
+		except AttributeError:
+			chromefile =  os.getcwd()+ "/driver/chromedrivermac"	
+	elif(platform.system() == "Windows"):
+		try:	
+			chromefile =  os.path.join(sys._MEIPASS, "chromedriverwin.exe")
+		except AttributeError:
+			chromefile =  os.getcwd()+"/driver/chromedriverwin.exe"	
 	else:
-		chromefile =  os.path.join(sys._MEIPASS, "chromedriverlinux")	
+		try:
+			chromefile =  os.path.join(sys._MEIPASS, "chromedriverlinux")
+		except AttributeError:
+			chromefile =  os.getcwd()+ "/driver/chromedriverlinux"		
 
 	monthlyAmount = getMonthlyAmount()
 	startDate = getStartDate()
