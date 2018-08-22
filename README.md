@@ -29,7 +29,7 @@ When you start the Application you will be asked to enter these parameters
 | --- | --- |
 | Amount | The amount you will be investing in into the Mutual Funds (takes only numbers) |
 | Start Date | Start date in the format MM/DD/YYYY you want data data for the Mutual Funds from (needs to atleast day before the current day) |
-| End Data | End date in the format MM/DD/YYYY you want data data for the Mutual Funds till (cannot be after the current day)|
+| End Date | End date in the format MM/DD/YYYY you want data data for the Mutual Funds till (cannot be after the current day)|
 | Keyword | Keyword you want to use to filter  Mutual Funds by |
 | Filename | Name of file you want to save the data in |
 
