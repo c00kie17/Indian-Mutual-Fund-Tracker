@@ -27,7 +27,7 @@ def getdata(link,name):
 			monthValBox = WebDriverWait(linkdriver, 20).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/span/div/div[3]/div/div[1]/div/div[1]/form/div[1]/div[1]/label/input")))
 		except TimeoutException:
 			return data	
-		finally:
+		else:
 			monthValBox.clear()
 			monthValBox.send_keys(monthlyAmount)
 
@@ -35,7 +35,7 @@ def getdata(link,name):
 			startDateBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@ng-model="sip_start_date"]')))
 		except TimeoutException:
 			return data		
-		finally:	
+		else:	
 			startDateBox.clear()
 			startDateBox.send_keys(str(startDate))
 
@@ -43,7 +43,7 @@ def getdata(link,name):
 			endDateBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '//*[@ng-model="sip_end_date"]')))
 		except TimeoutException:
 			return data		
-		finally:	
+		else:	
 			endDateBox.clear()
 			endDateBox.send_keys(str(endDate))
 
@@ -51,7 +51,7 @@ def getdata(link,name):
 			calcBox = WebDriverWait(linkdriver, 20).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div/span/div/div[3]/div/div[1]/div/div[1]/form/div[1]/div[4]/button')))
 		except TimeoutException:
 			return data		
-		finally:	
+		else:	
 			calcBox.click()
 		values = linkdriver.find_elements_by_class_name("fund-details");
 
